@@ -24,6 +24,15 @@
             padding: 0;
             background-color: #271f05;
         }
+        
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
         .title-box {
             background-color: #526357;
@@ -39,6 +48,68 @@
             margin: 0;
         }
 
+        .form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333333;
+        }
+
+        .task {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            margin-right: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .cancel-button {
+            background-color: #dc3545;
+        }
+
+        .cancel-button:hover {
+            background-color: #c82333;
+        }
+
+        .submit-button {
+            background-color: #28a745;
+        }
+
+        .submit-button:hover {
+            background-color: #218838;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
 </head>
 
@@ -47,6 +118,19 @@
         <div class="title-box">
             <h2 class="title">Daily Scrum</h2>
         </div>
+        <form id="standupForm" class="form">
+            <div class="flex gap-4 mb-6 form-group">
+                <div class="w-1/2">
+                    <label for="Analyse Name" class="block text-sm font-semibold text-gray mb-2">Team Member Name</label>
+                    <select id="Analyste Name" class="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 input">
+                    </select>
+                </div>
+                <div class="w-1/2">
+                    <label for="Project" class="block text-sm font-semibold text-gray-800 mb-2">Project</label>
+                    <select id="Project" class="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 input">
+                    </select>
+                </div>
+            </div>
 
 </body>
 </html>
