@@ -12,7 +12,7 @@
             white-space: pre;
             background-color: #1a202c; /* Tailwind color gray-800 */
             color: white;
-            overflow-x: auto; /* ensures the JSON can be scrolled horizontally */
+            overflow-x: auto;
             padding: 1rem;
             margin-top: 1rem;
             border-radius: 0.5rem;
@@ -178,16 +178,16 @@
                 </div>
             </div>
 
-            <div class="button-group">
-                <button type="button" class="py-2 px-6 bg-red-500 hover:bg-red-800 rounded-md shadow-sm text-white focus:outline-none focus:ring focus:border-blue-300 transition duration-200 ease-in-out button cancel-button">
+            <div class="button-group" style="justify-content: center;">
+                <button type="button" class="py-2 px-6 bg-red-500 hover:bg-red-800 rounded-md shadow-sm text-white focus:outline-none focus:ring focus:border-blue-300 transition duration-200 ease-in-out button cancel-button" style="margin-right: 30px;">
                     Cancel
                 </button>
                 <button type="submit" class="py-2 px-6 bg-geen-50 hover:bg-green-900 rounded-md shadow-sm text-white focus:outline-none focus:ring focus:border-blue-300 transition duration-200 ease-in-out button submit-button">
                     Submit
                 </button>
             </div>
-        </form>
-    </div>
+            
+            
 
     <script>
         document.getElementById("addTodaysTask").addEventListener("click", function() {
@@ -229,6 +229,7 @@
 
             taskList.appendChild(newTaskDiv);
         }
+        
     </script>
 
 </body>
