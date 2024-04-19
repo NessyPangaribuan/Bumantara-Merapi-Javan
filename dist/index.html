@@ -118,18 +118,6 @@
         <div class="title-box">
             <h2 class="title">Daily Scrum</h2>
         </div>
-        <div id="jsonDisplay">
-            <pre>{
-  "analyst_name": [],
-  "project_name": [],
-  "target_hari_ini": [
-    {}
-  ],
-  "task_terlambat": [
-    {}
-  ]
-}</pre>
-        </div>
         <form id="standupForm" class="form">
             <div class="flex gap-4 mb-6 form-group">
                 <div class="w-1/2">
@@ -197,7 +185,21 @@
                     Submit
                 </button>
             </div>
-            
+
+            <div id="jsonDisplay" style="margin-top: 20px;">
+                <pre>{
+  "analyst_name": [],
+  "project_name": [],
+  "target_hari_ini": [
+    {}
+  ],
+  "task_terlambat": [
+    {}
+  ]
+}</pre>
+            </div>
+        </form>
+
     <script>
         function generateJSON() {
             var analystName = document.getElementById("Analyste Name").value;
