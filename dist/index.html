@@ -118,13 +118,25 @@
         <div class="title-box">
             <h2 class="title">Daily Scrum</h2>
         </div>
+        <div id="jsonDisplay">
+            <pre>{
+  "analyst_name": [],
+  "project_name": [],
+  "target_hari_ini": [
+    {}
+  ],
+  "task_terlambat": [
+    {}
+  ]
+}</pre>
+        </div>
         <form id="standupForm" class="form">
             <div class="flex gap-4 mb-6 form-group">
                 <div class="w-1/2">
-                    <label for="Analyse Name" class="block text-sm font-semibold text-gray mb-2 uppercase">Analyse Name</label>
+                    <label for="Analyste Name" class="block text-sm font-semibold text-gray mb-2 uppercase">Analyst Name</label>
                     <select id="Analyste Name" class="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 input">
                         <option>Select...</option>
-                        <option>Purwa Darozatun</option>
+                        <option>Javan LDAP</option>
                         <!-- Add more options here -->
                     </select>
                 </div>
@@ -132,7 +144,6 @@
                     <label for="Project" class="block text-sm font-semibold text-gray mb-2 uppercase">Project</label>
                     <select id="Project" class="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 input">
                         <option>Select...</option>
-                        <option>XL-LMS Enhancement ECRF 2022 </option>
                         <option>Learning WBS</option>
                         <option>Product Laravolt-5</option>    
                         <!-- Add more options here -->
@@ -145,7 +156,7 @@
                 <div class="flex items-center mb-4 task">
                     <select class="py-2 px-3 border border-gray-300 rounded-md shadow-sm flex-1 mr-3 focus:outline-none focus:border-blue-300 input">
                         <option>Member Name...</option>
-                        <option>Purwa Darozatun</option>
+                        <option>Javan LDAP</option>
                         <!-- Add more options here -->
                     </select>
                     <input type="text" placeholder="Task URL" class="py-2 px-3 border border-gray-300 rounded-md shadow-sm flex-1 mr-3 focus:outline-none focus:border-blue-300 input">
@@ -167,7 +178,7 @@
                 <div class="flex items-center mb-4 task">
                     <select class="py-2 px-3 border border-gray-300 rounded-md shadow-sm flex-1 mr-3 focus:outline-none focus:border-blue-300 input">
                         <option>Member Name...</option> 
-                        <option>Purwa Darozatun</option>
+                        <option>Javan LDAP</option>
                         <!-- Add more options here -->
                     </select>
                     <input type="text" placeholder="Task URL" class="py-2 px-3 border border-gray-300 rounded-md shadow-sm flex-1 mr-3 focus:outline-none focus:border-blue-300 input">
@@ -182,14 +193,59 @@
                 <button type="button" class="py-2 px-6 bg-red-500 hover:bg-red-800 rounded-md shadow-sm text-white focus:outline-none focus:ring focus:border-blue-300 transition duration-200 ease-in-out button cancel-button" style="margin-right: 30px;">
                     Cancel
                 </button>
-                <button type="submit" class="py-2 px-6 bg-geen-50 hover:bg-green-900 rounded-md shadow-sm text-white focus:outline-none focus:ring focus:border-blue-300 transition duration-200 ease-in-out button submit-button">
+                <button type="button" onclick="generateJSON()" class="py-2 px-6 bg-green-500 hover:bg-green-800 rounded-md shadow-sm text-white focus:outline-none focus:ring focus:border-blue-300 transition duration-200 ease-in-out button submit-button">
                     Submit
                 </button>
             </div>
             
-            
-
     <script>
+        function generateJSON() {
+            var analystName = document.getElementById("Analyste Name").value;
+            var projectName = document.getElementById("Project").value;
+            var targetTasks = [];
+            var lateTasks = [];
+
+            // Get Today's Target tasks
+            var todayTasks = document.querySelectorAll("#taskList .task");
+            todayTasks.forEach(function(task) {
+                var memberName = task.querySelector("select").value;
+                var taskUrl = task.querySelectorAll("input")[0].value;
+                var taskStatus = task.querySelectorAll("select")[1].value;
+                if (memberName !== "Member Name..." && taskUrl !== "" && taskStatus !== "Task Status...") {
+                    targetTasks.push({
+                        "nama_anggota": memberName,
+                        "url_task": taskUrl,
+                        "status_task": taskStatus
+                    });
+                }
+            });
+
+            // Get Late Tasks
+            var lateTaskList = document.querySelectorAll("#lateTaskList .task");
+            lateTaskList.forEach(function(task) {
+                var memberName = task.querySelector("select").value;
+                var taskUrl = task.querySelectorAll("input")[0].value;
+                var reasonForDelay = task.querySelectorAll("input")[1].value;
+                if (memberName !== "Member Name..." && taskUrl !== "" && reasonForDelay !== "") {
+                    lateTasks.push({
+                        "nama_anggota": memberName,
+                        "url_task": taskUrl,
+                        "alasan_terlambat": reasonForDelay
+                    });
+                }
+            });
+
+            var jsonData = {
+                "analyst_name": analystName,
+                "project_name": projectName,
+                "target_hari_ini": targetTasks,
+                "task_terlambat": lateTasks
+            };
+
+            // Display JSON
+            document.getElementById("jsonDisplay").innerHTML = `<pre>${JSON.stringify(jsonData, null, 2)}</pre>`;
+        }
+
         document.getElementById("addTodaysTask").addEventListener("click", function() {
             var taskList = document.getElementById("taskList");
             addTask(taskList);
@@ -206,7 +262,7 @@
             
             var memberSelect = document.createElement("select");
             memberSelect.className = "py-2 px-3 border border-gray-300 rounded-md shadow-sm flex-1 mr-3 focus:outline-none focus:border-blue-300 input";
-            memberSelect.innerHTML = '<option>Member Name...</option><option>Purwa Darozatun</option>';
+            memberSelect.innerHTML = '<option>Member Name...</option><option>Javan LDAP</option>';
             newTaskDiv.appendChild(memberSelect);
 
             var newInput = document.createElement("input");
@@ -217,7 +273,7 @@
 
             var newStatusSelect = document.createElement("select");
             newStatusSelect.className = "py-2 px-3 border border-gray-300 rounded-md shadow-sm flex-1 focus:outline-none focus:border-blue-300 input";
-            newStatusSelect.innerHTML = '<option>Reason for Delay...</option><option>Ready</option><option>Feedback</option><option>Ready for Test</option>';
+            newStatusSelect.innerHTML = '<option>Task Status...</option><option>Ready</option><option>Feedback</option><option>Ready for Test</option>';
             newTaskDiv.appendChild(newStatusSelect);
 
             var deleteButton = document.createElement("button");
@@ -229,8 +285,6 @@
 
             taskList.appendChild(newTaskDiv);
         }
-        
     </script>
-
 </body>
 </html>
