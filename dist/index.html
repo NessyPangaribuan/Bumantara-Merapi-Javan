@@ -156,31 +156,80 @@
                         <option>Ready for Test</option> 
                         <!-- Add more status options here -->
                     </select>
+                    <button type="button" id="addTodaysTask" class="ml-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full button">
+                        +
+                    </button>
                 </div>
             </div>
 
-            <div class="mb-6 form-group">
+            <div class="mb-6 form-group" id="lateTaskList">
                 <h3 class="text-md font-semibold text-gray-800 mb-2 subtitle uppercase">Late Tasks</h3>
-                    <div class="flex items-center mb-4 task">
-                        <select class="py-2 px-3 border border-gray-300 rounded-md shadow-sm flex-1 mr-3 focus:outline-none focus:border-blue-300 input">
-                            <option>Member Name...</option> 
-                            <option>Purwa Darozatun</option>
-                            <!-- Add more options here -->
-                        </select>
-                        <input type="text" placeholder="Task URL" class="py-2 px-3 border border-gray-300 rounded-md shadow-sm flex-1 mr-3 focus:outline-none focus:border-blue-300 input">
-                        <input type="text" placeholder="Reason for Delay" class="py-2 px-3 border border-gray-300 rounded-md shadow-sm flex-1 focus:outline-none focus:border-blue-300 input">
-                    </div>
-                    
-                    <div class="button-group">
-                        <button type="button" class="py-2 px-6 bg-blue-400 hover:bg-gray-300 rounded-md shadow-sm text-white focus:outline-none focus:ring focus:border-blue-300 transition duration-200 ease-in-out button cancel-button">
-                        Cancel
-                        </button>
-                        <button type="submit" class="py-2 px-6 bg-blue-400 hover:bg-gray-300 rounded-md shadow-sm text-white focus:outline-none focus:ring focus:border-blue-300 transition duration-200 ease-in-out button submit-button">
-                            Submit
-                        </button>
-                    </div>
-                </form>
+                <div class="flex items-center mb-4 task">
+                    <select class="py-2 px-3 border border-gray-300 rounded-md shadow-sm flex-1 mr-3 focus:outline-none focus:border-blue-300 input">
+                        <option>Member Name...</option> 
+                        <option>Purwa Darozatun</option>
+                        <!-- Add more options here -->
+                    </select>
+                    <input type="text" placeholder="Task URL" class="py-2 px-3 border border-gray-300 rounded-md shadow-sm flex-1 mr-3 focus:outline-none focus:border-blue-300 input">
+                    <input type="text" placeholder="Reason for Delay" class="py-2 px-3 border border-gray-300 rounded-md shadow-sm flex-1 focus:outline-none focus:border-blue-300 input">
+                    <button type="button" id="addLateTask" class="ml-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full button">
+                        +
+                    </button>
+                </div>
             </div>
+
+            <div class="button-group">
+                <button type="button" class="py-2 px-6 bg-red-500 hover:bg-red-800 rounded-md shadow-sm text-white focus:outline-none focus:ring focus:border-blue-300 transition duration-200 ease-in-out button cancel-button">
+                    Cancel
+                </button>
+                <button type="submit" class="py-2 px-6 bg-geen-50 hover:bg-green-900 rounded-md shadow-sm text-white focus:outline-none focus:ring focus:border-blue-300 transition duration-200 ease-in-out button submit-button">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("addTodaysTask").addEventListener("click", function() {
+            var taskList = document.getElementById("taskList");
+            addTask(taskList);
+        });
+
+        document.getElementById("addLateTask").addEventListener("click", function() {
+            var lateTaskList = document.getElementById("lateTaskList");
+            addTask(lateTaskList);
+        });
+
+        function addTask(taskList) {
+            var newTaskDiv = document.createElement("div");
+            newTaskDiv.className = "flex items-center mb-4 task";
+            
+            var memberSelect = document.createElement("select");
+            memberSelect.className = "py-2 px-3 border border-gray-300 rounded-md shadow-sm flex-1 mr-3 focus:outline-none focus:border-blue-300 input";
+            memberSelect.innerHTML = '<option>Member Name...</option><option>Purwa Darozatun</option>';
+            newTaskDiv.appendChild(memberSelect);
+
+            var newInput = document.createElement("input");
+            newInput.type = "text";
+            newInput.placeholder = "Task URL";
+            newInput.className = "py-2 px-3 border border-gray-300 rounded-md shadow-sm flex-1 mr-3 focus:outline-none focus:border-blue-300 input";
+            newTaskDiv.appendChild(newInput);
+
+            var newStatusSelect = document.createElement("select");
+            newStatusSelect.className = "py-2 px-3 border border-gray-300 rounded-md shadow-sm flex-1 focus:outline-none focus:border-blue-300 input";
+            newStatusSelect.innerHTML = '<option>Reason for Delay...</option><option>Ready</option><option>Feedback</option><option>Ready for Test</option>';
+            newTaskDiv.appendChild(newStatusSelect);
+
+            var deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "ml-1 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full button";
+            deleteButton.textContent = "-";
+            deleteButton.onclick = function() { newTaskDiv.remove(); };
+            newTaskDiv.appendChild(deleteButton);
+
+            taskList.appendChild(newTaskDiv);
+        }
+    </script>
 
 </body>
 </html>
